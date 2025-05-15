@@ -23,7 +23,7 @@ Izstrādāt lietotni, kas nodrošina psiholoģisko testu administrēšanu, aizpi
 ---
 
 ### **Izmantotās tehnoloģijas**
-- **Frontend**: React.js
+- **Frontend**: Vue.js
 - **Backend**: Laravel
 - **Datubāze**: MySQL
 
