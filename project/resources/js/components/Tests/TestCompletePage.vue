@@ -58,93 +58,20 @@
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
+// Move API logic to a composable for reuse and separation of concerns
+import useTestCompletion from '../../scripts/TestComplete.js';
 
-const testId = window.testId || null;
+const {
+  testId,
+  test,
+  answers,
+  submitting,
+  successMessage,
+  errorMessage,
+  chartUrl,
+  fetchTestAndInitAnswers,
+  submitAnswers
+} = useTestCompletion();
 
-const test = ref(null);
-const answers = ref({});
-const submitting = ref(false);
-const successMessage = ref('');
-const errorMessage = ref('');
-const chartUrl = ref('');
-
-onMounted(async () => {
-  try {
-    // Fetch test and questions
-    const response = await fetch(`/api/tests/${testId}`);
-    if (response.ok) {
-      test.value = await response.json();
-      // Initialize answers object
-      if (test.value && test.value.questions) {
-        for (const q of test.value.questions) {
-          answers.value[q.id] = '';
-        }
-      }
-    } else {
-      // Show a user-friendly error if 404 or not JSON
-      let text = await response.text();
-      if (text.includes('404') || text.includes('Not Found')) {
-        errorMessage.value = 'Test not found. Please check the link or contact support.';
-      } else {
-        errorMessage.value = 'Failed to load test. ' + text;
-      }
-    }
-  } catch (e) {
-    errorMessage.value = 'Error loading test. ' + (e?.message || e);
-  }
-});
-
-async function submitAnswers() {
-  submitting.value = true;
-  successMessage.value = '';
-  errorMessage.value = '';
-  chartUrl.value = '';
-  try {
-    const resp = await fetch('/api/user-answers', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-      },
-      body: JSON.stringify({
-        test_id: testId, // Ensure testId is sent for both endpoints
-        answers: answers.value
-      }),
-    });
-    if (resp.ok) {
-      // After saving answers, send to chart endpoint
-      try {
-        const chartResp = await fetch('/api/save-polar-chart', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-          },
-          body: JSON.stringify({
-            test_id: testId,
-            answers: answers.value
-          }),
-        });
-        if (chartResp.ok) {
-          const data = await chartResp.json();
-          chartUrl.value = data.chart_url || '';
-          successMessage.value = 'Answers and chart saved successfully!';
-        } else {
-          // Try to get error details from backend
-          let err = await chartResp.text();
-          errorMessage.value = 'Answers saved, but failed to save chart.' + (err ? ' Details: ' + err : '');
-        }
-      } catch (e) {
-        errorMessage.value = 'Answers saved, but error saving chart. ' + (e?.message || e);
-      }
-    } else {
-      const data = await resp.text();
-      errorMessage.value = (data && typeof data === 'string') ? data : 'Failed to save answers.';
-    }
-  } catch (e) {
-    errorMessage.value = 'Error saving answers. ' + (e?.message || e);
-  } finally {
-    submitting.value = false;
-  }
-}
+onMounted(fetchTestAndInitAnswers);
 </script>

@@ -53,6 +53,8 @@
 </template>
 
 <script>
+import useTestCreate from '../../scripts/TestCreate.js';
+
 export default {
   props: {
     questions: {
@@ -60,66 +62,8 @@ export default {
       default: () => [],
     }
   },
-  data() {
-    return {
-      testName: '',
-      selectedExistingQuestionId: '',
-      newQuestionText: '',
-      newQuestionType: 'text',
-      testQuestions: [],
-      success: '',
-      error: '',
-    };
-  },
-  methods: {
-    addExistingQuestion() {
-      const q = this.questions.find(q => q.id == this.selectedExistingQuestionId);
-      if (q && !this.testQuestions.some(tq => tq.text === q.text && tq.type === (q.type || 'text'))) {
-        // Only copy text and type, do not include id
-        this.testQuestions.push({ text: q.text, type: q.type || 'text' });
-      }
-      this.selectedExistingQuestionId = '';
-    },
-    addNewQuestion() {
-      if (!this.newQuestionText.trim()) return;
-      this.testQuestions.push({ text: this.newQuestionText, type: this.newQuestionType });
-      this.newQuestionText = '';
-      this.newQuestionType = 'text';
-    },
-    removeQuestion(idx) {
-      this.testQuestions.splice(idx, 1);
-    },
-    async submitTest() {
-      this.error = '';
-      this.success = '';
-      if (!this.testName.trim() || this.testQuestions.length === 0) {
-        this.error = 'Test name and at least one question are required.';
-        return;
-      }
-      try {
-        const response = await fetch('/tests', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-          },
-          body: JSON.stringify({
-            name: this.testName,
-            questions: this.testQuestions,
-          }),
-        });
-        if (!response.ok) {
-          const data = await response.json();
-          this.error = data.message || 'Failed to create test.';
-        } else {
-          this.success = 'Test created successfully!';
-          this.testName = '';
-          this.testQuestions = [];
-        }
-      } catch (e) {
-        this.error = 'An error occurred. Please try again.';
-      }
-    }
+  setup(props) {
+    return useTestCreate(props.questions);
   }
 };
 </script>
