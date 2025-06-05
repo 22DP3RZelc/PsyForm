@@ -31,22 +31,22 @@ function updateNavButtons() {
   navButtons.value = [
     { label: 'About', icon: TextSearch, link: '/' },
     { label: 'Home', icon: House, link: '/home' },
+    
   ];
 
   if (user.value) {
     navButtons.value.push(
-      {
-        label: 'Profile',
-        icon: UserRound,
-        dropdown: true,
-        children: [
-          { label: 'View Profile', icon: UserRound, link: '/profile' },
-          { label: 'Logout', icon: LogOut, action: logout, class: 'bg-red-700 dark:hover:bg-red-800' },
-        ],
-      }
+      { label: 'Create Test', icon: ShieldUser, link: '/tests/create' },
+      { label: 'Profile', icon: UserRound, link: '/profile' },
+      
     );
     if (user.value.role === 'admin') {
       navButtons.value.push({ label: 'Admin', icon: ShieldUser, link: '/admin' });
+    };
+    if (user.value) {
+      navButtons.value.push(
+        { label: 'Logout', icon: LogOut, action: logout },
+      );
     }
   } else {
     navButtons.value.push(

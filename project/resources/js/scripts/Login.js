@@ -12,7 +12,7 @@ export default {
             try {
                 const response = await axios.post('/login', this.form);
                 if (response.status === 200) {
-                    window.location.href = '/profile';
+                    window.location.href = '/home';
                 }
             } catch (error) {
                 if (error.response && error.response.data) {

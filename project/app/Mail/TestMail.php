@@ -22,8 +22,8 @@ class TestMail extends Mailable
     /**
      * Build the message.
      */
-    public function build()
-    {
-        return $this->subject('Test Email from Laravel 11')->view('test');
-    }
+    // public function build()
+    // {
+    //     return $this->subject('Test Email from Laravel 11')->view('test');
+    // }
 }

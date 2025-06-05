@@ -10,7 +10,7 @@ class AdminController extends Controller
 
     public function updateUserRole(Request $request, $id)
     {
-        \Log::info('Request received for updating user role', [
+        Log::info('Request received for updating user role', [
             'user_id' => $id,
             'role' => $request->input('role'),
         ]);
@@ -19,7 +19,7 @@ class AdminController extends Controller
         $user->role = $request->input('role'); // Update the role
         $user->save(); // Save the changes
 
-        \Log::info('User role updated successfully', [
+        Log::info('User role updated successfully', [
             'user_id' => $id,
             'new_role' => $user->role,
         ]);

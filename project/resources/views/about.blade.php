@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Game Page'])
+@extends('layouts.app', ['title' => 'PsyForm'])
 @section('content')
     <about-page/>
 @endsection

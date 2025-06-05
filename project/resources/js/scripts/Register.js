@@ -22,7 +22,7 @@ export default {
           password: this.form.password,
           password_confirmation: this.form.confirmPassword,
         });
-        window.location.href = '/profile';
+        window.location.href = '/home';
       } catch (error) {
         if (error.response && error.response.data) {
           alert(error.response.data.message || 'An error occurred during registration.');

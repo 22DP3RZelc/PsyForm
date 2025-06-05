@@ -1,7 +1,7 @@
 <template>
   <AppLayout>
-    <div class="flex min-h-screen bg-gradient-to-br from-green-200 via-teal-200 to-blue-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <div class="container mt-25 mx-auto p-5 max-w-[900px]">
+    <div class="flex justify-center items-center min-h-screen bg-gradient-to-br from-green-200 via-teal-200 to-blue-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <div class="bg-white/90 dark:bg-gray-900/90 p-10 rounded-2xl shadow-2xl max-w-3xl w-full">
         <div class="flex mb-6">
           <h1 class="text-3xl font-bold text-teal-700 dark:text-teal-300">Admin Dashboard</h1>
           <button @click="resetChanges" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 ml-auto" :disabled="!hasChanges">Reset</button>
@@ -62,8 +62,9 @@
                     class="border border-gray-300 dark:border-gray-700 px-2 py-1 rounded dark:bg-gray-800 dark:text-gray-100"
                     :disabled="user.markedForDeletion"
                   >
+                  <option value="admin">Admin</option>
                     <option value="user">User</option>
-                    <option value="admin">Admin</option>
+                    <option value="psychologist">Psychologist</option>
                   </select>
                 </td>
                 <td class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-center">

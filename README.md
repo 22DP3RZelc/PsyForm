@@ -32,13 +32,13 @@ Izstrādāt lietotni, kas nodrošina psiholoģisko testu administrēšanu, aizpi
 ### **Izstrādes soļi**
 - [x] Lietotnes galvene ar navigāciju uz profilu reģistrētajiem lietotājiem (Header)
 - [x] Lietotnes kājene (Footer)
-- [ ] Reģistrēšanas/Ielogošanas/Izlogošanas iespēja gan frontend, gan backend, ierakstu saglabāšana MySQL datubāzē
-- [ ] Datu validācija formās
-- [ ] Lietotāja profils
+- [x] Reģistrēšanas/Ielogošanas/Izlogošanas iespēja gan frontend, gan backend, ierakstu saglabāšana MySQL datubāzē
+- [x] Datu validācija formās
+- [x] Lietotāja profils
 - [ ] Sānu navigācija testu kategorijām
 - [ ] 404 NotFound lapa
-- [ ] Lomu sadalīšana starp testu administratoriem un lietotājiem
-- [ ] Responsīvs dizains dažādām ierīcēm
+- [x] Lomu sadalīšana starp testu administratoriem un lietotājiem
+- [x] Responsīvs dizains dažādām ierīcēm
 - [ ] Galvenā lapa ar jaunumiem un piedāvātajiem testiem
 - [ ] Testu veidošanas saskarne administratoriem
 - [ ] Rezultātu apkopošanas un vizualizācijas sadaļa
