@@ -10,7 +10,7 @@ class TestCreateMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check() || Auth::user()->role !== 'admin' || Auth::user()->role !== 'psychologist') {
+        if (!Auth::check() || !in_array(Auth::user()->role, ['admin', 'psychologist'])) {
             return redirect('/');
         }
 

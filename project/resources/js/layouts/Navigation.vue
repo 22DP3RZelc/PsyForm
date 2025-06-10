@@ -31,23 +31,23 @@ function updateNavButtons() {
   navButtons.value = [
     { label: 'About', icon: TextSearch, link: '/' },
     { label: 'Home', icon: House, link: '/home' },
-    
   ];
 
   if (user.value) {
+    if (['admin', 'psychologist'].includes(user.value.role)) {
+      navButtons.value.push(
+        { label: 'Create Test', icon: ShieldUser, link: '/tests/create' }
+      );
+    }
     navButtons.value.push(
-      { label: 'Create Test', icon: ShieldUser, link: '/tests/create' },
       { label: 'Profile', icon: UserRound, link: '/profile' },
-      
     );
     if (user.value.role === 'admin') {
       navButtons.value.push({ label: 'Admin', icon: ShieldUser, link: '/admin' });
-    };
-    if (user.value) {
-      navButtons.value.push(
-        { label: 'Logout', icon: LogOut, action: logout },
-      );
     }
+    navButtons.value.push(
+      { label: 'Logout', icon: LogOut, action: logout },
+    );
   } else {
     navButtons.value.push(
       { label: 'Login', icon: KeyRound, link: '/login' },

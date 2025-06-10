@@ -104,8 +104,8 @@ Route::get('/tests', [TestController::class, 'index'])->middleware('auth')->name
 Route::get('/tests/create', function () {
     $questions = \App\Models\Question::all();
     return view('Tests/test_create', compact('questions'));
-})->middleware('auth')->name('tests.create');
-Route::post('/tests', [TestController::class, 'store'])->middleware('auth')->name('tests.store');
+})->middleware('TestCreateMiddleware')->name('tests.create');
+Route::post('/tests', [TestController::class, 'store'])->middleware('TestCreateMiddleware')->name('tests.store');
 
 Route::get('/tests/{test}', function ($testId) {
     return view('test_complete', ['testId' => $testId]);
